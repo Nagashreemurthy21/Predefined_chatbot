@@ -1,0 +1,50 @@
+#import regular expression module to handle text processing
+import re
+
+#import  dictinary that maps keywords to responses
+responses = {
+    "hello": "Hi there! How can I assist you today?",
+    "help": "Sure! What do you need help with?",
+    "bye": "Goodbye! Have a great day!",
+    "thank you": "You're welcome! If you have any more questions, feel free to ask.",
+    "hi": "Hello! How can I help you?",
+    "what is your name": "I am ChatBot, your virtual assistant.",
+    "good morning": "Good morning! How can I assist you today?",
+    "had lunch": "I don't eat, but I'm here to help you!",
+    "how are you": "I'm just a program, but thanks for asking! How can I assist you?",
+    "default": "I'm sorry, I didn't understand that. Can you please rephrase?"
+}
+
+#funtion to get response based on user input
+def chatbot_response(user_input):
+    #convert input to lowercase to make it case-insensitive
+    user_input = user_input.lower()
+    
+    #remove punctuation using regular expressions
+    user_input = re.sub(r'[^\w\s]', '', user_input)
+    
+    #check if any keyword is in the user input and return corresponding response
+    for keyword in responses:
+       if re.search(keyword, user_input):
+           return responses[keyword]
+    return responses["default"]
+
+
+
+
+#main function to run chatbot
+def chatbot():
+    print("ChatBot: Hello! I am ChatBot. Type 'exit' to end the conversation.")
+    while True:
+        # Get user input
+        user_input = input("You: ")
+        #check for exit condition
+        if user_input.lower() == 'exit':
+            print("ChatBot: Goodbye! Have a great day!")
+            break
+        #get chatbot response based on user input
+        response = chatbot_response(user_input)
+        print("ChatBot:", response)
+
+#run the chatbot
+chatbot()
